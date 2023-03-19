@@ -4,34 +4,41 @@
 
 using namespace std;
 
-void mergesort(vector<int>& a, int st, int m, int dr)
+void mergesort(vector<int>& v, int st, int m, int dr)
 {
-    int b[100];
-    int i, j, k;
-    i = 0; j = st;
-    /// copiem prima jumatate a vectorului a in b
-    while (j <= m)
-        b[i++] = a[j++];
-    i = 0; k = st;
-    /// copiem inapoi cel mai mare element la fiecare pas
-    while (k < j && j <= dr)
-        if (b[i] <= a[j])
-            a[k++] = b[i++];
+    int *b = new int[dr-st+1];
+    int i, j, k=0;
+    i=st;
+    j = m+1;
+
+    while (i <= m && j <= dr)
+        if (v[i] > v[j])
+            b[k++] = v[j++];
         else
-            a[k++] = a[j++];
-    /// copiem elementele ramase daca mai exista
-    while (k < j)
-        a[k++] = b[i++];
+            b[k++] = v[i++];
+
+    while (i <= m)
+        b[k++] = v[i++];
+
+    while (j<=dr)
+        b[k++] = v[j++];
+
+    k=0;
+    for(i=st; i<=dr; i++)
+        v[i]=b[k++];
+
+    /// dezalocare vector
+    delete[] b;
 }
 
-void merge(vector<int>& a, int st, int dr)
+void merge(vector<int>& v, int st, int dr)
 {
     if (st < dr)
     {
-        int m = (st + dr) / 2;
-        merge(a, st, m);
-        merge(a, m + 1, dr);
-        mergesort(a, st, m, dr);
+        int m = st+(dr-st) / 2;
+        merge(v, st, m);
+        merge(v, m + 1, dr);
+        mergesort(v, st, m, dr);
     }
 }
 

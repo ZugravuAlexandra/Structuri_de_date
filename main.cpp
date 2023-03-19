@@ -166,22 +166,27 @@ int main()
     fin.close();
     int st=0, dr=v.size()-1;
     double s=0;
-    for (int i=0; i<8; i++)
+    long long vmax=100000000;
+    if (v.size()>vmax)
+        cout<<"nu poate sorta";
+    else
     {
-        auto begin = std::chrono::high_resolution_clock::now();
-        ///radixSort(v,1<<16);
-        ///merge(v, 0, v.size() - 1);
-        shell_sort(v);
-        ///heap_sort(v);
-        ///insertion_sort(v);
-        auto end = std::chrono::high_resolution_clock::now();
-        chrono::duration<double> elapsedSeconds = end - begin;
-        cout<<elapsedSeconds.count()<<endl;
-        s+=elapsedSeconds.count();
+        for (int i=0; i<8; i++)
+        {
+            auto begin = std::chrono::high_resolution_clock::now();
+            radixSort(v,10);
+            ///merge(v, 0, v.size() - 1);
+            ///shell_sort(v);
+            ///heap_sort(v);
+            ///insertion_sort(v);
+            auto end = std::chrono::high_resolution_clock::now();
+            chrono::duration<double> elapsedSeconds = end - begin;
+            cout<<elapsedSeconds.count()<<endl;
+            s+=elapsedSeconds.count();
+        }
+        double avg=s/8;
+        cout<<avg;
     }
-    double avg=s/8;
-    cout<<avg;
-
     /*
             for (int i = 0; i < v.size(); i++)
             {

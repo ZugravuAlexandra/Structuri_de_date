@@ -62,7 +62,7 @@ private:
 
     /// splay
     /// o sa primeasca un nod pe care va trebui sa il puna ca radacina prin aplicarea de rotatii
-    void splay(SplayN * nod)
+    void splay(SplayN *nod)
     {
         while(nod->par != NULL)
         {
